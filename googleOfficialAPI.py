@@ -1,14 +1,10 @@
 #YES THIS WORKS
-'''
-<script async src="https://cse.google.com/cse.js?cx=722815c0c7b964e2e">
-</script>
-<div class="gcse-search"></div>
-'''
+
 
 import os
-#from dotenv import load_dotenv
+from dotenv import load_dotenv
 
-#load_dotenv()
+load_dotenv()
 
 #MY_ENV_VAR = os.getenv('MY_ENV_VAR')
 
