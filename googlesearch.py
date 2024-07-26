@@ -12,10 +12,10 @@ def search_web(query, num_results=5):
         list of str: Top search result URLs
     """
     results = []
-    for result in googlesearch.search_web(query, num_results=num_results, stop=num_results):
+    for result in googlesearch.search(query, num_results=num_results, stop=num_results):
         results.append(result)
     return results
-googlesearch.search_web
+
 
 def print_results(results):
     """Print search results with indexing"""
