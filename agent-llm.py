@@ -20,23 +20,6 @@ ollama.create(model='Agent-LLM', modelfile=modelfile)
 
 
 
-
-'''
-
-url = "http://example.com"  # Replace with the URL you want to search
-phrase = "john doe"
-occurrences = find_phrase(url, phrase)
-
-if occurrences:
-    print("Found the phrase '{}' on the webpage:".format(phrase))
-    for i, occurrence in enumerate(occurrences):
-        print("Occurrence {}: {}".format(i+1, occurrence))
-else:
-    print("The phrase '{}' was not found on the webpage.".format(phrase))
-
-'''
-
-
 nameDetailed = "Alzuhairi Wheaton IL"
 name = "Alzuhairi"
 
@@ -113,4 +96,70 @@ f = open(os.path.join('Results/',"HenHen.md"), "w")
 f.write(response['message']['content'])
 f.close()
 
-print("DONE")
+print("DONE WITH REPORT")
+
+f = open(os.path.join('Results/',"HenHen.md"), "r")
+
+response = ollama.chat(model='Agent-LLM', messages=[
+  {
+    'role': 'user',
+    'content': 'Return the name of a person of interest that is not the main subject from the data, nothing else:' + f.read() ,
+  },
+])
+print(response['message']['content'])
+f.close()
+
+
+
+
+
+
+
+results = get_google_search_results(response['message']['content'])
+
+
+uncompiledData = ""
+for result in results:
+
+ 
+  print(f"Title: {result['title']}")
+  print(f"Link: {result['link']}")
+  print(f"Snippet: {result['snippet']}")
+  print("Soap says:")
+  
+
+  uncompiledData += f'''
+  Title: {result['title']}'
+  Link: {result['link']}
+  Snippet: {result['snippet']}
+  Term(s) found:
+  
+  '''
+
+  terms = find_phrase(result['link'], searchFor)
+  if terms:
+    print("Found the following phrases on the webpage:")
+    for phrase, term in terms:
+        print(f"Phrase: {phrase}")
+        print(f"Occurrence: {term}")
+        print("\n")
+        uncompiledData += f"Phrase: {phrase}\n"
+        uncompiledData += f"Occurrence: {term}\n"
+  else:
+     print("not found, probably should search again")
+  
+  '''
+  else:
+    
+        
+    #print("The phrase '{}' was not found on the webpage, sorry!".format(name))
+    print("\n")
+
+
+    uncompiledData +=f"The phrase '{name}' was not found on the webpage, sorry!\n"
+    '''
+
+ 
+
+
+
