@@ -4,6 +4,7 @@
         "dotenv",
         "googleapiclient",
         "KHTML",
-        "ollama"
+        "ollama",
+        "OSINT"
     ]
 }
