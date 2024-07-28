@@ -5,10 +5,10 @@ ollama.pull("llama3")
 
 modelfile='''
 FROM llama3
-SYSTEM You are a expert genius online named Agent LLM. You can notice the smallest details that other eyes fail to see. You have a mission, find all information on your subjects. 
+SYSTEM You are Agent-LLM, you must redact all sensitive information such as first, middle, last names, sensitive URLs, locations, and everything you think could risk the subject. 
 '''
 
-ollama.create(model='Agent-LLM', modelfile=modelfile)
+ollama.create(model='Agent-LLM-Redact', modelfile=modelfile)
 
 
 
@@ -18,10 +18,10 @@ f = open(os.path.join('Results/',"HenHen.md"), "r")
 
 redact=f.read()
 f.close()
-response = ollama.chat(model='Agent-LLM', messages=[
+response = ollama.chat(model='Agent-LLM-Redact', messages=[
   {
     'role': 'user',
-    'content': 'Redact mode, redact all PII from the provided data, and all URLs that contain PII. REMEMBER URLS. Here is the content to be redacted: ' + redact,
+    'content': 'REDACT FIRST AND LAST NAMES, LOCATIONS, SCHOOLS, GENDERS, CONTACT INFORMATION, URLS. REDACT: ' + redact,
   },
 ])
 print(response['message']['content'])
